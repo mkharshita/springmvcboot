@@ -6,10 +6,12 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -145,9 +147,17 @@ public class HomeController {
         model.addAttribute("name", "Aliens");
     }
 
-    @RequestMapping("addAlien")
+    @PostMapping("addAlien")
     public String addAlien(@ModelAttribute("alien") Alien alien, Model model){
         return "alienResult";
+    }
+
+    @GetMapping("getAliens")
+    public String getAliens(Model model){
+        List<Alien> aliens = Arrays.asList(new Alien(1, "Harshita"), new Alien(2, "Shruti"));
+
+        model.addAttribute("result", aliens);
+        return "alienShow";
     }
 
 }
